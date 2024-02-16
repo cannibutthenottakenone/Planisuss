@@ -8,9 +8,9 @@ The world is procedurally generated
 ## Todo
 
 - [ ] generate map
-    - [ ] Cell class
-    - [ ] world generation
-    - [ ] world visualization
+	- [ ] Cell class
+	- [ ] world generation
+	- [ ] world visualization
 - [ ] spawn creatures
 	- [ ] creatures classes 
 - [ ] simulate world
