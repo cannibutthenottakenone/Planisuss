@@ -1,0 +1,34 @@
+{
+    "WORLD":
+    {
+        "NUMDAYS" : 100000,
+        "NUMCELLS_X" : 400,
+        "NUMCELLS_Y" : 400,
+        "GROWING" : 1,
+        "MAX_FERTILITY":1.5,
+        "MIN_FERTILITY":0.5
+    },
+    "CREATURES":
+    {
+        "NEIGHBORHOOD" : 1,
+        "MAX_ENERGY" : 100,
+        "MAX_LIFE" : 10000,
+        "AGING" : 1,
+        "ERBAST":
+        {
+            "NEIGHBORHOOD_E" : 1,
+            "MAX_ENERGY_E" : 100,
+            "MAX_LIFE_E" : 10000,
+            "AGING_E" : 1,
+            "MAX_HERD" : 1000  
+        },
+        "CARVIZ":
+        {
+            "NEIGHBORHOOD_C" : 1,
+            "MAX_ENERGY_C" : 100,
+            "MAX_LIFE_C" : 10000,
+            "AGING_C" : 1,
+            "MAX_PRIDE" : 100
+        }
+    }
+}
