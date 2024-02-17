@@ -1,15 +1,19 @@
+from Helpers.planisuss_constants import constants
+from random import randint
+
 class Cell:
     """
     ### Cell
-    atomic unit of the simulated world
-    """
+    Atomic unit of the simulated world
+    """   
+    
     
     def __init__(self, cellType = "water", fertility: float = 0):
         """
-        ### Cell
-        creates a new cell
+        ### Cell.constructor()
+        Creates a new cell
         
-        parameters:
+        #### Parameters:
         - cellType: value used to decide cell type, <water|soil>
         - fertility: multiplier for plant growth
         """
@@ -19,3 +23,18 @@ class Cell:
             self.fertility=0
         else:
             self.fertility=fertility
+            self.vegetobDensity=randint(0,100)
+            
+        
+        
+    def growVegetob(self):
+        """
+        ### Cell.growVegetob()
+        Will increase the vegetob density by GROWING*fertility
+        """
+        if self.cellType=="water":
+            return
+        
+        self.vegetobDensity+=constants["WPRLD"]["GROWING"]*self.fertility
+        if self.vegtobDensity>100:
+            self.vegtobDensity=100

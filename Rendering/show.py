@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from World.world import World
 
 def show(world: World):
-    worldVisual=np.ndarray((world.getDimensions()[1], world.getDimensions()[0], 3))
+    worldVisual=np.ndarray((world.dimensions[1], world.dimensions[0], 3))
     
     for i in range(worldVisual.shape[1]):
         for j in range(worldVisual.shape[0]):

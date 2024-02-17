@@ -8,22 +8,20 @@ import matplotlib.pyplot as plt
 class World:
     """
     ### World
-    encapsulates the whole simulated world.   
-    
+    Encapsulates the whole simulated world.    
     """
 
     def __init__(self, X: int =50, Y: int =50, minFertility: float =0.5, maxFertility: float =1.5):
         """
-        ### World
-        generates a new world as a X,Y sized matrix of cells
+        ### World.constructor()
+        Generates a new world as a X,Y sized matrix of cells
         
-        parameters:
-        X,Y: integers, represent the dimensions of the world
-
+        #### Parameters:
+        X,Y: integers, represent the dimensions of the world.
         """
         self.dimensions = (X, Y)
                 
-        self.world = [[-1 for _ in range(Y)] for _ in range(X)]
+        self.world :list[Cell]= [[-1 for _ in range(Y)] for _ in range(X)]
         cellSeeds = [[-1 for _ in range(Y)] for _ in range(X)]
         
         #creation of all cells according to weighted random walk
@@ -69,12 +67,23 @@ class World:
         
 
 
-    def growVegetob():
-        pass
+    def growVegetob(self):
+        """
+        ### World.growVegetob()
+        Grows the vegetob across the map.
+        """
+        for i in self.dimensions[1]:
+            for j in self.dimensions[0]:
+                self.world[i][j].growVegetob()
+            
 
     def getCell(self, x, y)-> Cell:
-            """returns a cell"""
+            """
+            ### World.getCell()
+            Returns a cell.
+            
+            #### Parameters:
+            - x: the x coordinate;
+            - y: the y coordinate.            
+            """
             return self.world[y][x]
-        
-    def getDimensions(self) -> tuple[int, int]:
-        return self.dimensions
