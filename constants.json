@@ -20,7 +20,8 @@
             "MAX_ENERGY_E" : 100,
             "MAX_LIFE_E" : 10000,
             "AGING_E" : 1,
-            "MAX_HERD" : 1000  
+            "MAX_HERD" : 1000,  
+            "TRACES_LIFE": 3
         },
         "CARVIZ":
         {

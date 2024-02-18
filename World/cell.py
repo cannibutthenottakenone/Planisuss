@@ -24,6 +24,8 @@ class Cell:
             self.fertility=fertility
             self.vegetobDensity=randint(0,100)
             
+        self.traces=False #to allow predators to track preys
+        self.tracesAge=0            
         
         
     def growVegetob(self, const: dict):
@@ -40,3 +42,25 @@ class Cell:
         self.vegetobDensity+=const["WORLD"]["GROWING"]*self.fertility
         if self.vegetobDensity>100:
             self.vegetobDensity=100
+            
+    def tracesSet(self):
+        """
+        ### Cell.tacesSet()
+        Marks the cell as containing traces
+        """
+        self.traces=True
+        self.tracesAge=0
+        
+    def tracesAging(self, const: dict):
+        """
+        ### Cell.tracesAging
+        Ages the traces on the cell and deletes them if they're too old
+        
+        #### Parameters
+        - const: the constants dictionary
+        """
+        if self.traces:
+            if self.tracesAge==const["CREATURES"]["ERBAST"]["TRACES_LIFE"]:
+                self.traces=False
+                return
+            self.tracesAge+=1
