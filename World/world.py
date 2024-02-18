@@ -1,7 +1,5 @@
 from Helpers import random_walk
 from World.cell import Cell
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -67,14 +65,17 @@ class World:
         
 
 
-    def growVegetob(self):
+    def growVegetob(self, const: dict):
         """
         ### World.growVegetob()
         Grows the vegetob across the map.
+        
+        #### Parameters:
+        - const: the constants dictionary
         """
-        for i in self.dimensions[1]:
-            for j in self.dimensions[0]:
-                self.world[i][j].growVegetob()
+        for i in range(self.dimensions[1]):
+            for j in range(self.dimensions[0]):
+                self.world[i][j].growVegetob(const)
             
 
     def getCell(self, x, y)-> Cell:

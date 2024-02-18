@@ -1,8 +1,6 @@
 from json import loads
 
-constants: dict
-
-def import_constants(self, **kargs):
+def import_constants(**kargs) -> dict:
     """
     ### import_constants() 
     Initializes the program constants, it uses the parameters provided and defaults to the constants json file.
@@ -27,4 +25,6 @@ def import_constants(self, **kargs):
     for e in constants["CREATURES"]["CARVIZ"].keys():
         if e in keys:
             constants["CREATURES"]["CARVIZ"][e]=kargs[e]
+            
+    return constants
     

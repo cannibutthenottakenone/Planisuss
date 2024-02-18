@@ -1,4 +1,3 @@
-from Helpers.planisuss_constants import constants
 from random import randint
 
 class Cell:
@@ -27,14 +26,17 @@ class Cell:
             
         
         
-    def growVegetob(self):
+    def growVegetob(self, const: dict):
         """
         ### Cell.growVegetob()
         Will increase the vegetob density by GROWING*fertility
+        
+        #### Parameters
+        - const: the constants dictionary
         """
         if self.cellType=="water":
             return
         
-        self.vegetobDensity+=constants["WPRLD"]["GROWING"]*self.fertility
-        if self.vegtobDensity>100:
-            self.vegtobDensity=100
+        self.vegetobDensity+=const["WORLD"]["GROWING"]*self.fertility
+        if self.vegetobDensity>100:
+            self.vegetobDensity=100
