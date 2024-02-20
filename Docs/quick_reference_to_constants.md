@@ -15,6 +15,7 @@ The program contains multiple parameters that can e modified to modify the behav
 - MAX_ENERGY: Maximum value of Energy (default:100)
 - MAX_LIFE: Maximum value of Lifetime (default:10000)
 - AGING: Energy lost each month (default:1)
+- MAX_SOCIAL_GROUP: Maximum numerosity of a social group (default:1000)
 ### Erbast
 - NEIGHBORHOOD_E: Radius of the region that a herd can evaluate to decide the movement 1 
 - MAX_ENERGY_E: Maximum value of Energy for Erbast (default:100)

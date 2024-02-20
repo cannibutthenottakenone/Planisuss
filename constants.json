@@ -14,6 +14,7 @@
         "MAX_ENERGY" : 100,
         "MAX_LIFE" : 10000,
         "AGING" : 1,
+        "MAX_SOCIAL_GROUP" : 1000,
         "ERBAST":
         {
             "NEIGHBORHOOD_E" : 1,

@@ -30,7 +30,7 @@ class World:
             for i in range(Y):
                 if i==0 or i==X-1 or j==0 or j==Y-1:
                     cellSeeds[j][i]={"value": 49, "fertility": 0}
-                    self.world[j][i]=Cell()
+                    self.world[j][i]=Cell((i,j))
                 else:
                     roundvalue=[cellSeeds[j-1][i-1]["value"], cellSeeds[j-1][i]["value"], cellSeeds[j-1][i+1]["value"], cellSeeds[j][i-1]["value"]]
                     roundfert=[cellSeeds[j-1][i-1]["fertility"], cellSeeds[j-1][i]["fertility"], cellSeeds[j-1][i+1]["fertility"], cellSeeds[j][i-1]["fertility"]]
@@ -44,9 +44,9 @@ class World:
                     
                     cellSeeds[j][i]={"value": value, "fertility": fert}
                     if value>49:
-                        self.world[j][i]=Cell("soil", fert)
+                        self.world[j][i]=Cell((i,j), "soil", fert)
                     else:
-                        self.world[j][i]=Cell("water", fert)
+                        self.world[j][i]=Cell((i,j), "water", fert)
             
                 
         

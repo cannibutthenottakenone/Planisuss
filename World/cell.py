@@ -7,22 +7,26 @@ class Cell:
     """   
     
     
-    def __init__(self, cellType = "water", fertility: float = 0):
+    def __init__(self, coordinates: tuple[int, int], cellType = "water", fertility: float = 0):
         """
         ### Cell.constructor()
         Creates a new cell
         
         #### Parameters:
-        - cellType: value used to decide cell type, <water|soil>
+        - coordinates: the coordinates of the cell
+        - cellType: value used to decide cell type, <'water'|'soil'>
         - fertility: multiplier for plant growth
         """
         
+        self.coordinates=coordinates
         self.cellType=cellType
         if self.cellType=="water":
             self.fertility=0
         else:
             self.fertility=fertility
             self.vegetobDensity=randint(0,100)
+            
+        self.socialGroups=[] #to store the social groups located on the cell
             
         self.traces=False #to allow predators to track preys
         self.tracesAge=0            
