@@ -1,0 +1,2 @@
+class Pride:
+    pass
