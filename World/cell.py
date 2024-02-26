@@ -1,3 +1,4 @@
+from Fauna.SocialGroups.socialGroup import SocialGroup
 from random import randint
 
 class Cell:
@@ -26,7 +27,7 @@ class Cell:
             self.fertility=fertility
             self.vegetobDensity=randint(0,100)
             
-        self.socialGroups=[] #to store the social groups located on the cell
+        self.socialGroups: list[SocialGroup]=[] #to store the social groups located on the cell
             
         self.traces=False #to allow predators to track preys
         self.tracesAge=0            

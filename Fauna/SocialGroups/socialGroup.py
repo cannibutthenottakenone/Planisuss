@@ -8,14 +8,21 @@ class SocialGroup:
     
     def __init__(self, maxSize: int):
         self.members: list[Creature]=[]
-        self.leaders: list[Creature]=[]  
+        self.leaders: list[Creature]=[]
+        self.energy=0
         
     def addMember(self, dude: Creature):
         """
         ### SocialGroup.addMember()
         Adds a creature to the group
+        !! To add a creature to a social group use Creature.joinSocialGroup(). That method will call this one.
         
         #### Parameters:
-        - dude: thre creature to add
+        - dude: the creature to add
         """
         self.members.append(dude)
+        
+    def electLeader():
+        
+        
+        pass

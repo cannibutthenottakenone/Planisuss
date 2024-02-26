@@ -30,6 +30,7 @@ class Creature:
         self.age=0
         self.energy=startEnergy
         self.socialAttitude=randrange(0,100)
+        self.laziness=random()+1
         self.position=position #list and not tuple because lists are mutable objects
         
         self.socialGroup: SocialGroup= None
@@ -59,23 +60,19 @@ class Creature:
         
         return random()<((-1*0.8*groupSize/const["CREATURES"]["MAX_SOCIAL_GROUP"]+0.9)(0.8*self.socialAttitude+0.1)) #check docs for formula explainations
        
-    def scoreCell(self, cell: Cell, distance: int, groupchoice: tuple[int,int]=False):
+    def scoreCell(self, cell: Cell, distance: int):
         """
         ### Creature.scoreCell()
         Given a cell it produces a score for it, check documentation for scoring function
         
         #### Parameters:
         - cell: the cell to score
-        - distance: the distance from the current position
-        - groupChoice: in case the creature has decided to not follow its group, the coordinates where the group will go
+        - distance: the distance from the current position        
         """
-        if groupchoice:
-            if cell.coordinates==groupchoice:
-                return -10
         
-        return 0 #no actual formula for general creatures, it should be rewritten inside the creature class
+        pass #no actual formula for general creatures, it should be rewritten inside the creature class
     
-    def pickMovement(self, currentCell: Cell, cellsSeen: list[Cell]):
+    def pickMovement(self, currentCell: Cell, cellsSeen: list[Cell], groupchoice: tuple[int,int]=False):
         """
         ### Creature.pickMovement()
         Given the cells that the creature can see it will pick one to move to.
@@ -83,11 +80,15 @@ class Creature:
         #### Parameters:
         - currentCell: the current cell where the creature is
         - cellsSeen: the cells that can be seen or remembered by the creature
+        - groupChoice: in case the creature has decided to not follow its group, the coordinates where the group will go
         """
     
         highScore=self.scoreCell(currentCell, 0)
         bestCell=currentCell
         for c in cellsSeen:
+            if groupchoice:
+                if c.coordinates==groupchoice:
+                    next
             cScore = self.scoreCell(c, max(abs(currentCell.coordinates[0]-c.coordinates[0]), abs(currentCell.coordinates[1]-c.coordinates[1])))
             if cScore>highScore:
                 highScore=cScore
