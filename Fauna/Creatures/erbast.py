@@ -13,5 +13,14 @@ class Erbast(Creature):
         else: 
             return cell.vegetobDensity-(distance**self.laziness)
         
-    def graze(cell: Cell):
-        pass
+    def graze(self, cell: Cell):
+        """
+        ### Erbast.graze()
+        The erbast will feed on the vegtob present on the cell it is in.
+        
+        #### Parameters:
+        - cell: the cell on which the erbast is located
+        """
+        
+        cell.vegetobDensity-=1
+        self.energy+=1

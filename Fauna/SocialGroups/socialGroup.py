@@ -22,7 +22,22 @@ class SocialGroup:
         """
         self.members.append(dude)
         
-    def electLeader():
+    def electLeader(self, const: dict):
+        """
+        ### SocialGroup.electLeader()
+        Elects a number of group leaders to fill the leaders list untill it contains "LEADERS" (constant) elements
         
+        #### Parameters: 
+        - const: the constants dictionary
+        """      
+        pass #each species has their own type of "government" 
+    
+    def updateLeader(self, const: dict, element: Creature):
+        """
+        ### SocialGroup.updateLeader()
+        Checks if an element that is new to the group has a right to oust a leader from the group
         
-        pass
+        #### Parameters: 
+        - const: the constants dictionary
+        """      
+        pass #each species has their own type of "government" 
