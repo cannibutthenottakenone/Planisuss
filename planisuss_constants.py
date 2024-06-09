@@ -31,4 +31,8 @@ AGING = 1            # energy lost each month
 AGING_E = 1          # energy lost each month for Erbast
 AGING_C = 1          # energy lost each month for Carviz
 
+SPEED = 1            # speed of default creature
+SPEED_E = 2          # speed of Erbasts
+SPEED_C = 3          # speed of Carvizes
+
 GROWING = 1          # Vegetob density that grows per day.

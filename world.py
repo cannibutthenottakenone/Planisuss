@@ -1,6 +1,7 @@
 import numpy as np
 from perlin_noise import PerlinNoise
 from planisuss_constants import SIZE as n  #size of the side of the square world.
+from planisuss_constants import GROWING
 from random import random
 
 def noiseMap(shape:tuple[int,int], scale:int):
@@ -22,7 +23,7 @@ def noiseMap(shape:tuple[int,int], scale:int):
     return grid
     
 
-def generateIsland(scale:int =25, r:int =25, shape: tuple[int,int] =(n,n) ):
+def generateIsland(scale:int =25, r:int =25, shape: tuple[int,int] =(n,n) ) -> np.ndarray:
     """
     ### generateIsland
     Generates an island on a [shape] shaped grid.
@@ -65,4 +66,12 @@ class World():
         self.geography=generateIsland()
         self.fertility=np.multiply(perlinNormalizationV(noiseMap((n,n),50)),self.geography+1) #elementwise multiplication of the two matrices to apply geography as a mask of our random walk
         self.vegetob=np.copy(self.fertility)*(random()*3)
+        
+        self.limitVegetobV=np.vectorize(lambda x: 10 if x>10 else x)
+        
+    def growVegetob(self):
+        newVegetob+=np.multiply(np.ones(self.geography.shape)*GROWING,self.fertility)
+        self.vegetob=self.limitVegetobV(newVegetob)
+        
+        
     
