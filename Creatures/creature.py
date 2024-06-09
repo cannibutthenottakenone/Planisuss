@@ -11,7 +11,7 @@ class Creature():
         self.age=0
         
     
-    def movement(movement: np.ndarray[int,int]):
+    def movement(self, movement: np.ndarray[int,int]):
         """
         ### Creature.movement
         Makes the creature move.
@@ -19,8 +19,10 @@ class Creature():
         #### Parameters:
         - movement: movement array [dx,dy]. Allowed values for cells {-1*self.speed,0,1*self.speed}
         """
-        position+=movement
-        energy-=max(movement) #diagonal movement still counts as 1
+        self.position+=movement
+        self.energy-=max(movement) #diagonal movement still counts as 1
+        if self.energy<0:
+            self.die()
         
     def pickMovement(self, seenCells: np.ndarray[int,int]):
         """each creature will implement this method in their own way"""
