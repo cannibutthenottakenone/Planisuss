@@ -28,9 +28,9 @@ class Creature():
         """each creature will implement this method in their own way"""
         return np.array([random.randint(-1,1),random.randint(-1,1)])
     
-    def age(self):
+    def older(self):
         """
-        ### Creature.age
+        ### Creature.older
         Makes the creature age.
         """
         self.age+=1
@@ -39,3 +39,6 @@ class Creature():
     
     def die(self):
         self.position=np.array([-1,-1]) #relies on upper levels to collect and delete
+        
+    def eat(self):
+        pass
