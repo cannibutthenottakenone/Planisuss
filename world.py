@@ -7,6 +7,7 @@ from planisuss_constants import GROWING
 
 from Creatures.creature import Creature
 from Creatures.erbast import Erbast
+from Creatures.carviz import Carviz
 
 def noiseMap(shape:tuple[int,int], scale:int):
     """
@@ -27,7 +28,7 @@ def noiseMap(shape:tuple[int,int], scale:int):
     return grid
     
 
-def generateIsland(scale:int =25, r:int =25, shape: tuple[int,int] =(n,n) ) -> np.ndarray:
+def generateIsland(scale:int =25, r:int =25, shape: tuple[int,int] =(n,n) )->np.ndarray:
     """
     ### generateIsland
     Generates an island on a [shape] shaped grid.
@@ -57,6 +58,12 @@ def generateIsland(scale:int =25, r:int =25, shape: tuple[int,int] =(n,n) ) -> n
     
     geography = islandFilterV(geography, geography.mean())
     
+    #no ground on borders
+    geography[0,0:n]=-1
+    geography[n-1,0:n]=-1
+    geography[0:n,0]=-1
+    geography[0:n,n-1]=-1
+    
     return geography # -1: water, 0: land
 
 def perlinNormalization(x):
@@ -71,6 +78,7 @@ class World():
         self.fertility=np.multiply(perlinNormalizationV(noiseMap((n,n),50)),self.geography+1) #elementwise multiplication of the two matrices to apply geography as a mask of our random walk
         self.vegetob=np.copy(self.fertility)*(random()*3)
         self.erbasts: list[Erbast]=self.populateCreature(Erbast) #array containing the erbasts
+        self.carvizes: list[Carviz]=self.populateCreature(Carviz, 20) #array containing the carvizes
         
         self.limitVegetobV=np.vectorize(lambda x: 10 if x>10 else x)
         
@@ -88,6 +96,3 @@ class World():
     def growVegetob(self):
         newVegetob=self.vegetob+self.fertility*GROWING
         self.vegetob=self.limitVegetobV(newVegetob)
-        
-        
-    

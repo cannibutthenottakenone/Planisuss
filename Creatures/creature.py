@@ -9,6 +9,7 @@ class Creature():
         self.maxLife=maxLife
         self.speed=speed
         self.age=0
+        self.dead=False
         
     
     def movement(self, movement: np.ndarray[int,int]):
@@ -38,7 +39,7 @@ class Creature():
             self.die()
     
     def die(self):
-        self.position=np.array([-1,-1]) #relies on upper levels to collect and delete
+        self.dead=True #relies on upper levels to collect and delete
         
     def eat(self):
         pass

@@ -1,23 +1,28 @@
 import numpy as np
-from random import randint
+from random import random
 
 import matplotlib.pyplot as plt
 from matplotlib.figure import SubFigure
 from matplotlib.widgets import Button
 from matplotlib.axes import Axes
 
+
 from world import World
+from render import Render
 from Creatures.creature import Creature
 from Creatures.erbast import Erbast
 
 from planisuss_constants import NUMDAYS
 
+def deleteDeads(array: list[Creature]):
+    for i in range(len(array)-1,0,-1):
+        if array[i].dead:
+            array.pop(i)           
+
 def update():
     world.growVegetob()    
     
-    for i in range(len(world.erbasts)-1,0,-1):
-        if np.array_equal(world.erbasts[i].position, np.array([-1,-1])):
-            del world.erbasts[i]
+    deleteDeads(world.erbasts); deleteDeads(world.carvizes)
     
     for erbast in world.erbasts:
         movement=erbast.pickMovement(world.vegetob)
@@ -26,82 +31,42 @@ def update():
         else:
             erbast.movement(movement)
             
-        erbast.older()
+        if erbast.energy>20 and random()>0.5:
+            erbast.reproduce()            
             
-                            
-def updateVis():
-    #computation of rendering matrix
-    renderMatrix=world.geography
-    
-    if show["vegetob"]:
-        renderMatrix=renderMatrix+world.vegetob
-    
-    if show["erbast"]:
-        erbastMatrix=np.zeros(world.geography.shape)
-        for e in world.erbasts:
-            erbastMatrix[e.position[0],e.position[1]]=15
-        renderMatrix+=erbastMatrix
+        erbast.older()
         
-    im = sbplt1.imshow(renderMatrix)
-    im.set_data(renderMatrix) 
-    
-    tags = ["Erbast", "Carviz"]
-    numbers = [len(world.erbasts),0]    
-    sbplt2.bar(tags, numbers)
+    for carviz in world.carvizes:
+        if not carviz.target:
+            carviz.pickTarget(world.erbasts)
+        if carviz.energy<carviz.speed*2:
+            carviz.hunt()
+        elif max(abs(carviz.target.position-carviz.position))>carviz.energy*2/3:
+            carviz.stalk()
+        else:
+            carviz.nap() #dummy method (pass)
+            
+        carviz.older()      
+
     
 
 if __name__ == "__main__":
     world = World()
-    
-    #variable keeping track of what to show
-    show={
-        "vegetob": True,
-        "erbast": True
-    }
-    
-    #initialization of window
-    plt.ion()
-    fig = plt.figure(figsize=(17, 10), facecolor="black")
-    fig.canvas.manager.set_window_title('Planisuss')
-    fig0,fig1=fig.subfigures(1,2,width_ratios=[2/3,1/3]);   fig0:SubFigure; fig1:SubFigure
-    
-    fig0.set_facecolor("turquoise")
-    fig0.suptitle("Map",fontsize="xx-large")
-    
-    sbplt1=fig0.add_axes((0.05,0.05,0.90,0.85))
-    sbplt1.tick_params(colors=(0, 0, 0, 0 ))
-    sbplt1.set_autoscale_on(True)
+    render = Render()
+    popHistory: np.ndarray=np.array([[len(world.erbasts)],[len(world.carvizes)]])
 
-    fig1.suptitle("Graphs",fontsize="xx-large",color=(1,1,1,1))
-
-    sbplt2,sbplt3=fig1.subplots(2,1);   sbplt2:Axes; sbplt3: Axes
-    sbplt2.set_facecolor((0.09,0.09,0.09,1))
-    sbplt2.tick_params(colors="white")
-    sbplt2.title.set_color("white")
-    sbplt2.set_xlabel("Creatures")
-    sbplt2.set_ylabel("")
-    sbplt2.set_title("Population of Species")
-    sbplt3.set_facecolor((0.09,0.09,0.09,1))
-    sbplt3.tick_params(colors="white")
-    sbplt3.title.set_color("white")
-    
-    pauseAx = fig0.add_axes([0.3, 0.005, 0.10, 0.04])
-    vegetobAx = fig0.add_axes([0.4, 0.005, 0.10, 0.04])
-    erbastAx = fig0.add_axes([0.5, 0.005, 0.10, 0.04])
-    carvizAx = fig0.add_axes([0.6, 0.005, 0.10, 0.04])
-    
-    pauseButton = Button(pauseAx, "Pause", hovercolor="0.975")
-    vegetobButton = Button(vegetobAx, "Vegetob", hovercolor="0.975")
-    erbastButton = Button(erbastAx, "Erbast", hovercolor="0.975")
-    carvizButton = Button(carvizAx, "Carviz", hovercolor="0.975")
-    
-    plt.show()
-    
     day=0
     while day<NUMDAYS:
-        print("day:",day)
-        update()
-        updateVis()
-        day+=1
+        if not render.paused:
+            update()
+            popHistory=np.append(popHistory, [[len(world.erbasts)],[len(world.carvizes)]], axis=1)
+            render.updateVis("day "+str(day), world, popHistory)
+            day+=1
+        else:
+            render.updateVis("paused", world, popHistory)
+        
+        if  not plt.get_fignums():
+            exit()
         plt.pause(0.1)
+    plt.pause(500)
         

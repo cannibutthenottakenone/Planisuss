@@ -10,14 +10,6 @@ NUMDAYS = 100000     # Length of the simulation in days
 # geometry
 SIZE = 200      # size of the (square) grid (NUMCELLS x NUMCELLS)
 
-# social groups
-NEIGHBORHOOD = 1     # radius of the region that a social group can evaluate to decide the movement
-NEIGHBORHOOD_E = 1   # radius of the region that a herd can evaluate to decide the movement
-NEIGHBORHOOD_C = 1   #  radius of the region that a pride can evaluate to decide the movement
-
-MAX_HERD = 1000      # maximum numerosity of a herd
-MAX_PRIDE = 100      # maximum numerosity of a pride
-
 # individuals
 MAX_ENERGY = 100     # maximum value of Energy
 MAX_ENERGY_E = 100   # maximum value of Energy for Erbast
@@ -25,7 +17,7 @@ MAX_ENERGY_C = 100   # maximum value of Energy for Carviz
 
 MAX_LIFE = 100     # maximum value of Lifetime
 MAX_LIFE_E = 100   # maximum value of Lifetime for Erbast
-MAX_LIFE_C = 10000   # maximum value of Lifetime for Carviz
+MAX_LIFE_C = 150   # maximum value of Lifetime for Carviz
 
 AGING = 1            # energy lost each month
 AGING_E = 1          # energy lost each month for Erbast
@@ -33,6 +25,6 @@ AGING_C = 1          # energy lost each month for Carviz
 
 SPEED = 1            # speed of default creature
 SPEED_E = 2          # speed of Erbasts
-SPEED_C = 3          # speed of Carvizes
+SPEED_C = 4          # speed of Carvizes
 
 GROWING = 0.3          # Vegetob density that grows per day.

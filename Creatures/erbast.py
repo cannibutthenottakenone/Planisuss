@@ -21,8 +21,8 @@ class Erbast(Creature):
         rangeM=min(self.speed, self.energy)
         
         ranking: tuple[float, np.ndarray[int, int]]=()
-        for i in range(self.position[0]-rangeM, self.position[0]+rangeM+1):
-            for j in range(self.position[1]-rangeM, self.position[1]+rangeM+1):
+        for i in range(max(0,self.position[0]-rangeM), min(vegetobs.shape[0],self.position[0]+rangeM+1)):
+            for j in range(max(0, self.position[1]-rangeM), min(vegetobs.shape[1],self.position[1]+rangeM+1)):
                 if ranking==():
                     ranking=(vegetobs[i][j],np.array([i,j]))
                 else:
@@ -36,4 +36,7 @@ class Erbast(Creature):
     def eat(self, vegetobs):
         vegetobs[self.position[0],self.position[1]]-=1
         self.energy+=1
+        
+    def reproduce(self):
+        pass #TODO
     
