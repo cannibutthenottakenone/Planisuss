@@ -3,7 +3,7 @@ import random
 from planisuss_constants import MAX_LIFE, SPEED
 
 class Creature():
-    def __init__(self, position:np.ndarray[int,int], startEnergy: int=10, maxLife: int=MAX_LIFE, speed: int=SPEED):
+    def __init__(self, position:np.ndarray[int,int], startEnergy: float=10, maxLife: int=MAX_LIFE, speed: int=SPEED):
         self.position=position
         self.energy=startEnergy
         self.maxLife=maxLife
@@ -35,11 +35,9 @@ class Creature():
         Makes the creature age.
         """
         self.age+=1
-        if self.age>self.maxLife:
+        if self.age>self.maxLife or self.energy<0:
             self.die()
     
     def die(self):
         self.dead=True #relies on upper levels to collect and delete
         
-    def eat(self):
-        pass

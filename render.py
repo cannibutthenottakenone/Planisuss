@@ -115,4 +115,5 @@ class Render():
         self.sbplt3.clear()
         self.sbplt3.plot( popHistory[0], color="white")
         self.sbplt3.plot(popHistory[1], color="red")
+        # self.sbplt3.plot(popHistory)
         

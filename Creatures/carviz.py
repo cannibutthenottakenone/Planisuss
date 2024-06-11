@@ -23,30 +23,34 @@ class Carviz(Creature):
                 distance=iDistance
                 self.target=erbasts[i]
 
-    def stalk(self)->np.ndarray:
+    def stalk(self, geography)-> None:
         """
         ### Carviz.stalk
         The carviz will move towards the target
         """
         
-        self.movement(self.getDirection())
-        
-        
+        self.movement(self.getDirection(geography))      
         
     
-    def hunt(self):
+    def hunt(self, geography)-> None:
         """
         ### Carviz.hunt
         If the prey is within reach the carviz will kill and eat it otherwise it will move towards it
         """
-        if True:
-            pass
+        if max(abs(self.target.position-self.position))>self.speed:
+            self.stalk(geography)
+        else:
+            self.position=self.target.position
+            self.energy+=self.target.energy*5/6
+            self.target.die()
+            self.target=None
         
-    def nap(self):
-        pass 
+    def nap(self) -> None:
+        self.energy-=0.5 
     
-    def getDirection(self) -> np.ndarray:
+    def getDirection(self, geography) -> np.ndarray:
         #here a breadth search first algorithm could be used
+        #TODO avoid sea
         completeD = self.target.position-self.position
         limitedD= np.array([min(self.speed, completeD[0]),min(self.speed, completeD[1])])
         return limitedD

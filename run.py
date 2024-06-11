@@ -24,7 +24,7 @@ def update():
     
     deleteDeads(world.erbasts); deleteDeads(world.carvizes)
     
-    for erbast in world.erbasts:
+    for erbast in world.erbasts: #could be moved in the erbast class
         movement=erbast.pickMovement(world.vegetob)
         if np.array_equal(movement, np.zeros(2)):
             erbast.eat(world.vegetob)
@@ -36,15 +36,15 @@ def update():
             
         erbast.older()
         
-    for carviz in world.carvizes:
+    for carviz in world.carvizes: #could be moved in the carviz class
         if not carviz.target:
             carviz.pickTarget(world.erbasts)
         if carviz.energy<carviz.speed*2:
-            carviz.hunt()
+            carviz.hunt(world.geography)
         elif max(abs(carviz.target.position-carviz.position))>carviz.energy*2/3:
-            carviz.stalk()
+            carviz.stalk(world.geography)
         else:
-            carviz.nap() #dummy method (pass)
+            carviz.nap()
             
         carviz.older()      
 
@@ -54,17 +54,20 @@ if __name__ == "__main__":
     world = World()
     render = Render()
     popHistory: np.ndarray=np.array([[len(world.erbasts)],[len(world.carvizes)]])
+    # energyAverage=[np.array([x.energy for x in world.carvizes]).mean()]
 
     day=0
     while day<NUMDAYS:
         if not render.paused:
             update()
             popHistory=np.append(popHistory, [[len(world.erbasts)],[len(world.carvizes)]], axis=1)
+            # energyAverage.append(np.array([x.energy for x in world.carvizes]).mean())
             render.updateVis("day "+str(day), world, popHistory)
+            print("day ",day)
             day+=1
         else:
             render.updateVis("paused", world, popHistory)
-        
+            
         if  not plt.get_fignums():
             exit()
         plt.pause(0.1)
