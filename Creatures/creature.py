@@ -7,19 +7,18 @@ class Creature():
     population=[]
     
     @classmethod
-    def populateCreature(cls, creature: type, world, amount: int=100):
+    def populateCreature(cls, creatureType: type, world, amount: int=100):
         for i in range(amount):
             accPos=False
             while not accPos:
                 position=np.array([randint(0, world.geography.shape[0]-1),randint(0, world.geography.shape[1]-1)])
                 accPos=world.geography[position[0],position[1]]!=-1            
-            cls.population.append(creature(position))
+            cls.population.append(creatureType(position))
     
     def __init__(self, position:np.ndarray[int,int], startEnergy: float=10, maxLife: int=MAX_LIFE, speed: int=SPEED):
         self.position=position
         self.energy=startEnergy
         self.maxLife= maxLife+ randrange(-1,2,2) * min(50,sqrt(-72.24*log(random())))  # maxlife + random amount from a gaussian, check documentation for more info
-        print(self.maxLife)
         self.speed=speed
         self.age=0
         self.dead=False
@@ -49,13 +48,18 @@ class Creature():
         """
         self.age+=1
         if self.age>self.maxLife:
-            self.breed()
+            self.breed(type(self))
             self.die()
         if self.energy<0:
-            self.die
+            self.die()
     
     def die(self):
         self.dead=True #relies on upper levels to collect and delete
         
-    def breed(self):
-        pass
+    def breed(self, creatureType: type):
+        energySplit=random()
+        energies=self.energy*np.array([energySplit, 1-energySplit])
+        self.population.append(creatureType(self.position.copy(), startEnergy=energies[0]))
+        self.population.append(creatureType(self.position.copy(), startEnergy=energies[1]))
+        self.population[-1].position
+        self.population[-2].position

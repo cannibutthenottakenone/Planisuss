@@ -85,6 +85,7 @@ class Render():
                     renderMatrix[i][j]=np.array([0.25,0.87,0.81])
                 elif self.show["vegetob"]:
                     renderMatrix[i][j]= self.linearVegetobColor(world.vegetob[i][j])
+                    # if world.vegetob[i][j]<=0: renderMatrix[i][j]= np.array([0.98, 0.01, 0.89]) # debug reasons
                 else:
                     renderMatrix[i][j]=np.array([0.39,0.21,0])              
             

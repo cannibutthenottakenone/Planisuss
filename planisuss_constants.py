@@ -17,8 +17,8 @@ MAX_ENERGY = 100     # maximum value of Energy
 MAX_ENERGY_E = 100   # maximum value of Energy for Erbast
 MAX_ENERGY_C = 100   # maximum value of Energy for Carviz
 
-MAX_LIFE = 100     # maximum value of Lifetime                  |
-MAX_LIFE_E = 100   # maximum value of Lifetime for Erbast       |-> will all be remodulated around a gaussian s.t. not everybody will have the same lifespan
+MAX_LIFE = 300     # maximum value of Lifetime                  |
+MAX_LIFE_E = 300   # maximum value of Lifetime for Erbast       |-> will all be remodulated around a gaussian s.t. not everybody will have the same lifespan
 MAX_LIFE_C = 150   # maximum value of Lifetime for Carviz       |
 
 AGING = 1            # energy lost each month
