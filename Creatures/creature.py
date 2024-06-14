@@ -1,6 +1,7 @@
 import numpy as np
-from random import randint
+from random import randint, random, randrange
 from planisuss_constants import MAX_LIFE, SPEED
+from math import log, sqrt
 
 class Creature():
     population=[]
@@ -17,7 +18,8 @@ class Creature():
     def __init__(self, position:np.ndarray[int,int], startEnergy: float=10, maxLife: int=MAX_LIFE, speed: int=SPEED):
         self.position=position
         self.energy=startEnergy
-        self.maxLife=maxLife
+        self.maxLife= maxLife+ randrange(-1,2,2) * min(50,sqrt(-72.24*log(random())))  # maxlife + random amount from a gaussian, check documentation for more info
+        print(self.maxLife)
         self.speed=speed
         self.age=0
         self.dead=False
@@ -46,8 +48,11 @@ class Creature():
         Makes the creature age.
         """
         self.age+=1
-        if self.age>self.maxLife or self.energy<0:
+        if self.age>self.maxLife:
+            self.breed()
             self.die()
+        if self.energy<0:
+            self.die
     
     def die(self):
         self.dead=True #relies on upper levels to collect and delete
