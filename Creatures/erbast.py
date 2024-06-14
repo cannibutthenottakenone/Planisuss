@@ -4,6 +4,8 @@ from Creatures.creature import Creature
 from planisuss_constants import MAX_LIFE_E,SPEED_E
 
 class Erbast(Creature):
+    population=[]
+    
     def __init__(self, position:np.ndarray[int,int], startEnergy: int=10, maxLife: int=MAX_LIFE_E, speed: int=SPEED_E):
         super().__init__(position,startEnergy,maxLife,speed)       
         

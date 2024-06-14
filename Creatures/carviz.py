@@ -5,6 +5,8 @@ from Creatures.erbast import Erbast
 from planisuss_constants import MAX_LIFE_C,SPEED_C
 
 class Carviz(Creature):
+    population=[]
+    
     def __init__(self, position:np.ndarray[int,int], startEnergy: int=10, maxLife: int=MAX_LIFE_C, speed: int=SPEED_C):
         super().__init__(position,startEnergy,maxLife,speed)       
         self.target: Erbast=None
@@ -22,7 +24,7 @@ class Carviz(Creature):
             if iDistance<distance:
                 distance=iDistance
                 self.target=erbasts[i]
-
+    
     def stalk(self, geography)-> None:
         """
         ### Carviz.stalk

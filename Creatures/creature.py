@@ -1,8 +1,19 @@
 import numpy as np
-import random
+from random import randint
 from planisuss_constants import MAX_LIFE, SPEED
 
 class Creature():
+    population=[]
+    
+    @classmethod
+    def populateCreature(cls, creature: type, world, amount: int=100):
+        for i in range(amount):
+            accPos=False
+            while not accPos:
+                position=np.array([randint(0, world.geography.shape[0]-1),randint(0, world.geography.shape[1]-1)])
+                accPos=world.geography[position[0],position[1]]!=-1            
+            cls.population.append(creature(position))
+    
     def __init__(self, position:np.ndarray[int,int], startEnergy: float=10, maxLife: int=MAX_LIFE, speed: int=SPEED):
         self.position=position
         self.energy=startEnergy
@@ -27,7 +38,7 @@ class Creature():
         
     def pickMovement(self, seenCells: np.ndarray[int,int]):
         """each creature will implement this method in their own way"""
-        return np.array([random.randint(-1,1),random.randint(-1,1)])
+        return np.array([randint(-1,1),randint(-1,1)]) #random direction with distance one
     
     def older(self):
         """
@@ -41,3 +52,5 @@ class Creature():
     def die(self):
         self.dead=True #relies on upper levels to collect and delete
         
+    def breed(self):
+        pass

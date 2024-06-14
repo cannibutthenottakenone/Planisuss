@@ -6,6 +6,8 @@ Collection of the main constants defined for the "Planisuss" project.
 ### Game constants
 
 NUMDAYS = 100000     # Length of the simulation in days
+NUMERBAST=150
+NUMCARVIZ=30
 
 # geometry
 SIZE = 200      # size of the (square) grid (NUMCELLS x NUMCELLS)

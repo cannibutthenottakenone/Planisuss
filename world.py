@@ -5,10 +5,6 @@ from perlin_noise import PerlinNoise
 from planisuss_constants import SIZE as n  #size of the side of the square world.
 from planisuss_constants import GROWING
 
-from Creatures.creature import Creature
-from Creatures.erbast import Erbast
-from Creatures.carviz import Carviz
-
 def noiseMap(shape:tuple[int,int], scale:int):
     """
     ### noiseMap
@@ -77,21 +73,8 @@ class World():
         self.geography=generateIsland()
         self.fertility=np.multiply(perlinNormalizationV(noiseMap((n,n),50)),self.geography+1) #elementwise multiplication of the two matrices to apply geography as a mask of our random walk
         self.vegetob=np.copy(self.fertility)*(random()*3)
-        self.erbasts: list[Erbast]=self.populateCreature(Erbast) #array containing the erbasts
-        self.carvizes: list[Carviz]=self.populateCreature(Carviz, 20) #array containing the carvizes
         
         self.limitVegetobV=np.vectorize(lambda x: 10 if x>10 else x)
-        
-        
-    def populateCreature(self, creature: type, amount: int=100):
-        array=[]
-        for i in range(amount):
-            accPos=False
-            while not accPos:
-                position=np.array([randint(0, self.geography.shape[0]-1),randint(0, self.geography.shape[1]-1)])
-                accPos=self.geography[position[0],position[1]]!=-1            
-            array.append(creature(position))    
-        return array
         
     def growVegetob(self):
         newVegetob=self.vegetob+self.fertility*GROWING

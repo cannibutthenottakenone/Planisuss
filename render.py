@@ -1,17 +1,12 @@
 import numpy as np
-from random import randint, random
 
 import matplotlib.pyplot as plt
 from matplotlib.figure import SubFigure
 from matplotlib.widgets import Button
 from matplotlib.axes import Axes
 
-
-from world import World
-from Creatures.creature import Creature
 from Creatures.erbast import Erbast
-
-from planisuss_constants import NUMDAYS
+from Creatures.carviz import Carviz
 
 class Render():
     
@@ -94,12 +89,12 @@ class Render():
                     renderMatrix[i][j]=np.array([0.39,0.21,0])              
             
         if self.show["erbast"]:
-            for e in world.erbasts:
+            for e in Erbast.population:
                 renderMatrix[e.position[0],e.position[1]]=[1,1,1]
             
         
         if self.show["carviz"]:
-            for e in world.carvizes:
+            for e in Carviz.population:
                 renderMatrix[e.position[0],e.position[1]]=[1,0,0]
         
         self.sbplt1.clear() 
@@ -108,12 +103,11 @@ class Render():
 
         #bar chart        
         self.sbplt2.clear()
-        numbers = [len(world.erbasts),len(world.carvizes)]    
+        numbers = [len(Erbast.population),len(Carviz.population)]    
         self.sbplt2.bar(["Erbast", "Carviz"], numbers, color=["white", "red"])
         
         #line chart
         self.sbplt3.clear()
         self.sbplt3.plot( popHistory[0], color="white")
         self.sbplt3.plot(popHistory[1], color="red")
-        # self.sbplt3.plot(popHistory)
         

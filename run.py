@@ -2,17 +2,14 @@ import numpy as np
 from random import random
 
 import matplotlib.pyplot as plt
-from matplotlib.figure import SubFigure
-from matplotlib.widgets import Button
-from matplotlib.axes import Axes
-
 
 from world import World
 from render import Render
 from Creatures.creature import Creature
 from Creatures.erbast import Erbast
+from Creatures.carviz import Carviz
 
-from planisuss_constants import NUMDAYS
+from planisuss_constants import NUMDAYS, NUMERBAST, NUMCARVIZ
 
 def deleteDeads(array: list[Creature]):
     for i in range(len(array)-1,0,-1):
@@ -22,9 +19,9 @@ def deleteDeads(array: list[Creature]):
 def update():
     world.growVegetob()    
     
-    deleteDeads(world.erbasts); deleteDeads(world.carvizes)
+    deleteDeads(Erbast.population); deleteDeads(Carviz.population)
     
-    for erbast in world.erbasts: #could be moved in the erbast class
+    for erbast in Erbast.population: #could be moved in the erbast class
         movement=erbast.pickMovement(world.vegetob)
         if np.array_equal(movement, np.zeros(2)):
             erbast.eat(world.vegetob)
@@ -36,9 +33,9 @@ def update():
             
         erbast.older()
         
-    for carviz in world.carvizes: #could be moved in the carviz class
+    for carviz in Carviz.population: #could be moved in the carviz class
         if not carviz.target:
-            carviz.pickTarget(world.erbasts)
+            carviz.pickTarget(Erbast.population)
         if carviz.energy<carviz.speed*2:
             carviz.hunt(world.geography)
         elif max(abs(carviz.target.position-carviz.position))>carviz.energy*2/3:
@@ -53,15 +50,17 @@ def update():
 if __name__ == "__main__":
     world = World()
     render = Render()
-    popHistory: np.ndarray=np.array([[len(world.erbasts)],[len(world.carvizes)]])
-    # energyAverage=[np.array([x.energy for x in world.carvizes]).mean()]
+    Erbast.populateCreature(Erbast, world, NUMERBAST)
+    Carviz.populateCreature(Carviz, world, NUMCARVIZ)
+    popHistory: np.ndarray=np.array([[len(Erbast.population)],[len(Carviz.population)]])
+    # energyAverage=[np.array([x.energy for x in Carviz.population]).mean()]
 
     day=0
     while day<NUMDAYS:
         if not render.paused:
             update()
-            popHistory=np.append(popHistory, [[len(world.erbasts)],[len(world.carvizes)]], axis=1)
-            # energyAverage.append(np.array([x.energy for x in world.carvizes]).mean())
+            popHistory=np.append(popHistory, [[len(Erbast.population)],[len(Carviz.population)]], axis=1)
+            # energyAverage.append(np.array([x.energy for x in Carviz.population]).mean())
             render.updateVis("day "+str(day), world, popHistory)
             print("day ",day)
             day+=1
