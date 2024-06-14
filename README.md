@@ -40,3 +40,7 @@ where:
 - `sqrt(-72.24*log(random()))` is the inverse function of the left wing of a Gaussian function with $a=1, b=0, c=6.01$ 
 $$\text{Gaussian}: f(x)=\exp(-\frac{x^2}{72.24}); \text{ Inverse:} f^{-1}(x)=\sqrt{-72.24\ln(x)} x\in[0,1]$$
 for the function $f^{-1}(x)$ we have that an input equal to 1 will return 0, which will assign the base parameter to the creature's life time, an input of 0.25 will have an effect of $\pm10$ on the lifetime while an $x\le0.0000000000000009$  will always have an effect of $\pm50$ days.
+
+<p align="center">
+  <img src="https://github.com/cannibutthenottakenone/Planisuss/assets/48643174/10f5c04e-3d55-4d88-85d2-9fd380943aea" alt="graph of f-1(x) created at https://www.desmos.com/calculator" />
+</p>
