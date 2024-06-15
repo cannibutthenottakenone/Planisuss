@@ -1,5 +1,4 @@
 import numpy as np
-from random import random
 
 import matplotlib.pyplot as plt
 
@@ -17,23 +16,24 @@ def deleteDeads(array: list[Creature]):
             array.pop(i)           
 
 def update():
+    """
+    ### update
+    computes a new day on planisuss
+    """
     world.growVegetob()    
     
     deleteDeads(Erbast.population); deleteDeads(Carviz.population)
     
-    for erbast in Erbast.population: #could be moved in the erbast class
+    for erbast in Erbast.population:
         movement=erbast.pickMovement(world.vegetob)
         if np.array_equal(movement, np.zeros(2)):
             erbast.eat(world.vegetob)
         else:
-            erbast.movement(movement)
-            
-        if erbast.energy>20 and random()>0.5:
-            erbast.reproduce()            
+            erbast.movement(movement)          
             
         erbast.older()
         
-    for carviz in Carviz.population: #could be moved in the carviz class
+    for carviz in Carviz.population:
         if not carviz.target:
             carviz.pickTarget(Erbast.population)
         if carviz.energy<carviz.speed*2:
@@ -62,7 +62,7 @@ if __name__ == "__main__":
             popHistory=np.append(popHistory, [[len(Erbast.population)],[len(Carviz.population)]], axis=1)
             # energyAverage.append(np.array([x.energy for x in Carviz.population]).mean())
             render.updateVis("day "+str(day), world, popHistory)
-            print("day ",day)
+            # print("day ",day)
             day+=1
         else:
             render.updateVis("paused", world, popHistory)

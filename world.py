@@ -1,5 +1,5 @@
 import numpy as np
-from random import random, randint
+from random import random
 from perlin_noise import PerlinNoise
 
 from planisuss_constants import SIZE as n  #size of the side of the square world.
@@ -69,6 +69,10 @@ def perlinNormalization(x):
 perlinNormalizationV=np.vectorize(perlinNormalization)  
 
 class World():
+    """
+    ### World
+    Class representing the world
+    """
     def __init__(self):   
         self.geography=generateIsland()
         self.fertility=np.multiply(perlinNormalizationV(noiseMap((n,n),50)),self.geography+1) #elementwise multiplication of the two matrices to apply geography as a mask of our random walk
