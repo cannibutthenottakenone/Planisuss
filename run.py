@@ -11,7 +11,7 @@ from Creatures.carviz import Carviz
 from planisuss_constants import NUMDAYS, NUMERBAST, NUMCARVIZ
 
 def deleteDeads(array: list[Creature]):
-    for i in range(len(array)-1,0,-1):
+    for i in range(len(array)-1,-1,-1):
         if array[i].dead:
             array.pop(i)           
 
@@ -20,9 +20,7 @@ def update():
     ### update
     computes a new day on planisuss
     """
-    world.growVegetob()    
-    
-    deleteDeads(Erbast.population); deleteDeads(Carviz.population)
+    world.growVegetob()
     
     for erbast in Erbast.population:
         movement=erbast.pickMovement(world.vegetob)
@@ -36,6 +34,9 @@ def update():
     for carviz in Carviz.population:
         if not carviz.target:
             carviz.pickTarget(Erbast.population)
+            if carviz.target is None:   #all erbasts are dead :(
+                carviz.nap()
+                continue
         if carviz.energy<carviz.speed*2:
             carviz.hunt(world.geography)
         elif max(abs(carviz.target.position-carviz.position))>carviz.energy*2/3:
@@ -43,7 +44,9 @@ def update():
         else:
             carviz.nap()
             
-        carviz.older()      
+        carviz.older()    
+        
+    deleteDeads(Erbast.population); deleteDeads(Carviz.population)  
 
     
 

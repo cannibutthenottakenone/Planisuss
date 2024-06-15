@@ -1,12 +1,13 @@
 import numpy as np
 from random import random
 from Creatures.creature import Creature
-from planisuss_constants import MAX_LIFE_E,SPEED_E
+from planisuss_constants import MAX_LIFE_E, SPEED_E, MAX_ENERGY_E
 
 class Erbast(Creature):
     population=[]
+    maxEnergy=MAX_ENERGY_E
     
-    def __init__(self, position:np.ndarray[int,int], startEnergy: int=10, maxLife: int=MAX_LIFE_E, speed: int=SPEED_E):
+    def __init__(self, position:np.ndarray[int,int], startEnergy: int=80, maxLife: int=MAX_LIFE_E, speed: int=SPEED_E):
         """
         ### Erbast.constructor
         Initiates a new creature object
@@ -53,5 +54,5 @@ class Erbast(Creature):
         """
         if vegetobs[self.position[0],self.position[1]]>1.5:
             vegetobs[self.position[0],self.position[1]]-=1.5
-            self.energy+=1
+            self.energy=min(self.energy+1, self.maxEnergy)
     

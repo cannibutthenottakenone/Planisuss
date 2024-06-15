@@ -2,10 +2,11 @@ import numpy as np
 from random import randint
 from Creatures.creature import Creature
 from Creatures.erbast import Erbast
-from planisuss_constants import MAX_LIFE_C,SPEED_C
+from planisuss_constants import MAX_LIFE_C,SPEED_C, MAX_ENERGY_C
 
 class Carviz(Creature):
     population=[]
+    maxEnergy=MAX_ENERGY_C
     
     def __init__(self, position:np.ndarray[int,int], startEnergy: int=10, maxLife: int=MAX_LIFE_C, speed: int=SPEED_C):
         """
@@ -30,6 +31,8 @@ class Carviz(Creature):
         if len(erbasts)==0: return
         distance=max(abs(erbasts[0].position-self.position)) #since diagonals also count as distance 1
         self.target=erbasts[0]
+        if len(erbasts)==0:
+            return
         for i in range(1, len(erbasts)):
             iDistance=max(abs(erbasts[i].position-self.position))
             if iDistance<distance:
@@ -58,7 +61,7 @@ class Carviz(Creature):
             self.stalk(geography)
         else:
             self.position=self.target.position
-            self.energy+=self.target.energy*5/6
+            self.energy= min(self.energy+self.target.energy*5/6, self.maxEnergy)
             self.target.die()
             self.target=None
         
@@ -82,5 +85,8 @@ class Carviz(Creature):
             self.target=None #recompute target
             while isSea:
                 limitedD=np.array([randint(0, self.speed),randint(0, self.speed)]) #and try a random directions
-                isSea=geography[self.position[0]+limitedD[0], self.position[1]+limitedD[1]]==-1
+                temporaryPos: np.ndarray=self.position+limitedD
+                if temporaryPos[0]<0 or temporaryPos[0]>geography.shape[0] or temporaryPos[1]<0 or temporaryPos[1]>geography.shape[1]:
+                    continue
+                isSea=geography[temporaryPos[0],temporaryPos[1]]==-1
         return limitedD

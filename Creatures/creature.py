@@ -1,6 +1,6 @@
 import numpy as np
 from random import randint, random, randrange
-from planisuss_constants import MAX_LIFE, SPEED
+from planisuss_constants import MAX_LIFE, SPEED, MAX_ENERGY
 from math import log, sqrt
 
 class Creature():
@@ -9,6 +9,7 @@ class Creature():
     Base class for the implementation of creatures
     """
     population=[]
+    maxEnergy=MAX_ENERGY
     
     @classmethod
     def populateCreature(cls, creatureType: type, world, amount: int=100):
@@ -88,7 +89,6 @@ class Creature():
         #### Parameters:
         - creatureType: the type of the creature
         """
-        print(self.age)
         energySplit=random()
         energies=self.energy*np.array([energySplit, 1-energySplit])
         self.population.append(creatureType(self.position.copy(), startEnergy=energies[0]))
