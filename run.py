@@ -36,6 +36,7 @@ def update():
             carviz.pickTarget(Erbast.population)
             if carviz.target is None:   #all erbasts are dead :(
                 carviz.nap()
+                carviz.older()
                 continue
         if carviz.energy<carviz.speed*2:
             carviz.hunt(world.geography)
